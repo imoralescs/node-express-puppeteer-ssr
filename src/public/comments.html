@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+        <title>Javascript SSR with Puppeteer</title>
+    </head>
+        <ul class="comments-list"></ul>
+    </body>
+    <script>
+    (async () => {
+        const getComments = () => {
+            return fetch('https://jsonplaceholder.typicode.com/comments')
+                .then(response => response.json())
+        }
+        
+        function renderComments(comments, container) {
+            let commentsListHTML = '';
+                comments.forEach(comment => commentsListHTML += `<li><b>${comment.email}</b>${comment.body}</li>`)
+                container.innerHTML = commentsListHTML
+            }
+            
+            const comments = await getComments()
+            const container = document.querySelector('.comments-list')
+            
+            renderComments(comments, container)
+        })();
+    </script>
+</html>
