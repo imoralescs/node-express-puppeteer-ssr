@@ -1,6 +1,6 @@
-const puppeteer = require('puppeteer')
+import puppeteer from 'puppeteer'
 
-async function ssr(url) {
+const ssr = async function ssr(url) {
   console.info('Rendering the page in SSR mode')
   
   // We launch headless browser
@@ -31,4 +31,4 @@ async function ssr(url) {
   }
 }
 
-module.exports = ssr
+export default ssr

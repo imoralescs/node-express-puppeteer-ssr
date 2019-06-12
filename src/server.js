@@ -1,13 +1,7 @@
-'use strict'
+import express from 'express'
+import path from 'path'
+import ssr from './ssr'
 
-const express = require('express')
-const path = require('path')
-
-const dotenv = require('dotenv')
-dotenv.config()
-const PORT = process.env.PORT
-
-const ssr = require('./ssr')
 const app = express()
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -20,6 +14,9 @@ app.use('/comments', async(req, res) => {
         .send(html);
 })
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`)
+// Catch all or 404
+app.all('*', (req, res) => {
+    res.json({ok: true})
 })
+
+export default app
